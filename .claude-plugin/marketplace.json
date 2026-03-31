@@ -1,0 +1,23 @@
+{
+  "name": "remix",
+  "owner": {
+    "name": "Remix"
+  },
+  "metadata": {
+    "description": "Official Remix plugins for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "remix",
+      "description": "Remix collaboration workflows for Claude Code",
+      "source": {
+        "source": "npm",
+        "package": "@remixhq/claude-plugin",
+        "version": "0.1.5"
+      },
+      "homepage": "https://github.com/RemixDotOne/remix-claude-plugin",
+      "repository": "https://github.com/RemixDotOne/remix-claude-plugin",
+      "license": "MIT"
+    }
+  ]
+}
