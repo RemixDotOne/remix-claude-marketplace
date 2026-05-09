@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate marketplace metadata
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from "node:fs";
+          const metadata = JSON.parse(readFileSync(".claude-plugin/marketplace.json", "utf8"));
+          if (!Array.isArray(metadata.plugins) || metadata.plugins.length === 0) {
+            throw new Error("marketplace.json must contain at least one plugin entry");
+          }
+          for (const plugin of metadata.plugins) {
+            if (!plugin?.source?.package || !plugin?.source?.version) {
+              throw new Error("marketplace plugin entries must include source.package and source.version");
+            }
+          }
+          NODE
